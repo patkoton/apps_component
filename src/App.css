@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,7 +35,7 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 
 a {
@@ -57,6 +57,13 @@ a {
   color: aliceblue;
 }
 
+.sidebar_open {
+  width: 40px;
+  padding: 30px 0 0 0;
+  background-color: #282c34;
+  color: aliceblue;
+}
+
 .top_section {
   display: flex;
   align-items: center;
@@ -66,6 +73,13 @@ a {
 .bars {
   display: flex;
   cursor: pointer;
+  margin-left: 50px;
+}
+
+.bars_open {
+  display: flex;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
 .link {
