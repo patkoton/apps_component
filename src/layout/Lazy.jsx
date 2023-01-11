@@ -5,7 +5,7 @@ const Lazy = () => {
 
   return (
     <div className='lazy_image'>
-        <img alt='Lazy Loader Logo' src={logo}/>
+        <img alt='Lazy Loader Logo' src={logo} />
     </div>
   )
 }
