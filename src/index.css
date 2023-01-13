@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 /* .App {
   text-align: center;
@@ -38,14 +42,10 @@
   }
 } */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 
 
 a {
-  text-decoration: none;
+  text-decoration: none !important;
   color: aliceblue;
 }
 
@@ -58,7 +58,7 @@ a {
 
 .sidebar {
   width: 200px;
-  padding: 0px 20px;
+  padding: 30px 20px 0px 20px;
   background-color: #282c34;
   color: aliceblue;
 }
@@ -79,7 +79,7 @@ a {
 .bars {
   display: flex;
   cursor: pointer;
-  margin-left: 50px;
+  margin-left: 40px;
 }
 
 .bars_open {
