@@ -20,12 +20,7 @@ const Employee = (props) => {
           {props.role}
         </p>
       </div>
-
-      <EditEmployees  id={props.id}
-                      name={props.name} 
-                      role={props.role} 
-                      updateEmployee={props.updateEmployee}
-      />
+      {props.editEmployees}
     </div>
   </div>
   )
