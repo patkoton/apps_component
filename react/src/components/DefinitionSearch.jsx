@@ -24,6 +24,7 @@ const DefinitionSearch = () => {
         }} />
       <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-1 px-2 rounded'>Search</button>
       </form>
+      // { replace : true }
   )
 }
 
