@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import AddEmployees from '../components/AddEmployee';
-import Employees from '../components/Employees'
+import Employees from '../components/Employee'
 import { v4 as uuidv4 } from 'uuid'
 import EditEmployees from '../components/EditEmployees';
 

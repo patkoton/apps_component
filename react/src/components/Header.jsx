@@ -14,10 +14,10 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Header(props) {
+export default function Header({isOpen}) {
   return (
     <>
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className={`bg-gray-800 float-right ${!isOpen ? 'w-full' : 'w-[calc(100%-250px)]'}`}>
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -52,11 +52,6 @@ export default function Header(props) {
                       <NavLink
                         key={item.name}
                         to={item.href}
-                        // className={classNames(
-                        //   item.current ? 'no-underline bg-gray-900 text-white' : 'no-underline text-gray-300 hover:bg-gray-700 hover:text-white',
-                        //   'px-3 py-2 rounded-md text-sm font-medium'
-                        // )}
-                        // aria-current={item.current ? 'page' : undefined}
                         className={({isActive}) => {
                             return 'px-3 py-2 rounded-md text-sm font-medium' +
                             (isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white')
@@ -142,14 +137,10 @@ export default function Header(props) {
                 <NavLink
                     key={item.name}
                     to={item.href}
-                    // className={classNames(
-                    //   item.current ? 'no-underline bg-gray-900 text-white' : 'no-underline text-gray-300 hover:bg-gray-700 hover:text-white',
-                    //   'px-3 py-2 rounded-md text-sm font-medium'
-                    // )}
-                    // aria-current={item.current ? 'page' : undefined}
+
                     className={({isActive}) => {
                         return 'block px-3 py-2 rounded-md text-base font-medium' +
-                        (isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white')
+                        (isActive ? 'bg-gray-900 text-gray-100' : 'text-gray-300 hover:bg-gray-700 hover:text-white')
                     }}
                     >
                         {item.name}
@@ -160,12 +151,13 @@ export default function Header(props) {
         </>
       )}
     </Disclosure>
-    <div className='bg-gray-300'>
-        <div className='max-w-7xl min-h-screen mx-auto px-3 py-2'>
-          {props.children}
-        </div>
-    </div>
-    <footer className='text-gray-400 bg-gray-800'>Example</footer>
     </>
   )
 }
+
+
+    // <div className='bg-gray-300'>
+    //     <div className='max-w-7xl min-h-screen mx-auto px-3 py-2'>
+    //       {props.children}
+    //     </div>
+    // </div>

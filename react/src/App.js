@@ -4,25 +4,26 @@ import { Route, Routes } from 'react-router-dom';
 import Lazy from './layout/Lazy';
 
 function App() {
-  // const Sidebar = lazy(()=> import('./components/Sidebar'))
-  const Header = lazy(()=> import('./components/Header'))
+  const Layout = lazy(()=> import('./layout/Layout'))
   const Dashboard = lazy(()=> import('./pages/Dashboard'))
+  const Customer = lazy(()=> import('./pages/Customer'))
   const Customers = lazy(()=> import('./pages/Customers'))
   const Dictionary = lazy(()=> import('./pages/Dictionary'))
   const Definition = lazy(()=> import('./pages/Definition'))
   const NotFound = lazy(()=> import('./components/NotFound'))
   return (
     <Suspense fallback={<Lazy/>}>
-        <Header>
+        <Layout>
           <Routes>
             <Route path='/' element={<Dashboard/>}/>
             <Route path='/customers' element={<Customers/>}/>
+            <Route path='/customers/:id' element={<Customer/>}/>
             <Route path='/dictionary' element={<Dictionary/>}/>
             <Route path='/dictionary/:search' element={<Definition/>}/>
             <Route path='/404' element={<NotFound/>}/>
             <Route path='*' element={<NotFound/>}/>
           </Routes>
-        </Header>
+        </Layout>
     </Suspense>
   );
 }
@@ -33,7 +34,7 @@ export default App;
     // <Suspense fallback={<Lazy/>}>
     //   <Sidebar>
     //     <Routes>
-    //       <Route path='/' element={<Dashboard/>}/>
+    //       
     //     </Routes>
     //   </Sidebar>
     // </Suspense>

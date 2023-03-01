@@ -1,5 +1,5 @@
 import React from 'react'
-import EditEmployees from './EditEmployees'
+// import EditEmployees from './EditEmployees'
 
 
 const Employee = (props) => {
