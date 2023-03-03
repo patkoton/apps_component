@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import AddEmployees from '../components/AddEmployee';
 import Employees from '../components/Employee'
 import { v4 as uuidv4 } from 'uuid'
-import EditEmployees from '../components/EditEmployees';
+import EditEmployee from '../components/EditEmployee';
 
 const Dashboard = () => {
   // const [role, setRole] = useState('Dev');
@@ -77,7 +77,7 @@ const Dashboard = () => {
         <div className='pt-3 flex flex-wrap justify-center'>
           {employees.map((employee) => {
             console.log(employee);
-            const editEmployee = <EditEmployees  
+            const editEmployee = <EditEmployee  
               id={employee.id}
               name={employee.name} 
               role={employee.role} 

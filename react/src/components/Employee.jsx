@@ -20,7 +20,7 @@ const Employee = (props) => {
           {props.role}
         </p>
       </div>
-      {props.editEmployees}
+      {props.editEmployee}
     </div>
   </div>
   )

@@ -32,42 +32,54 @@ const AddEmployees = (props) => {
         // console.log(props.id , name, role)
         props.newEmployee( name, role, img );
         handleClose();
-      }} id='editModal' class="bg-white rounded px-8 pt-6 pb-8 mb-4">
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
-            Full Name
+      }} id='editModal' class="w-full max-w-sm">
+        <div class="md:flex md:items-center mb-6">
+         <div className='md:w-1/3'>
+          <label class="block text-gray-700 font-bold md:text-right mb-1 md:mb-0 pr-4" for="name">
+          Full Name
           </label>
-          <input  class="bg-gray-200 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"   
-                  id="name" 
-                  type="text" 
-                  placeholder="John Smith" 
-                  value={name}
-                  onChange={(e) => {setName(e.target.value)}}
-          />
+         </div>
+          <div className='md:w-2/3'>
+            <input  class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"   
+                    id="name" 
+                    type="text" 
+                    placeholder="John Smith" 
+                    value={name}
+                    onChange={(e) => {setName(e.target.value)}}
+            />
+          </div>
         </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="role">
-            Role
-          </label>
-          <input  class="bg-gray-200 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                  id="role" 
-                  type="text" 
-                  placeholder="Bank Teller" 
-                  value={role}
-                  onChange={(e) => {setRole(e.target.value)}}
-          />
+        <div class="md:flex md:items-center mb-6">
+          <div className='md:w-1/3'>
+            <label class="block text-gray-700 font-bold md:text-right mb-1 md:mb-0 pr-4" for="role">
+              Role
+            </label>
+          </div>
+          <div className='md:w-2/3'>
+            <input  class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" 
+                    id="role" 
+                    type="text" 
+                    placeholder="Bank Teller" 
+                    value={role}
+                    onChange={(e) => {setRole(e.target.value)}}
+            />
+          </div>
         </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="img">
+        <div class="md:flex md:items-center mb-6">
+          <div className='md:w-1/3'>
+            <label class="block text-gray-700 font-bold md:text-right mb-1 md:mb-0 pr-4" for="img">
             Image URL
-          </label>
-          <input  class="bg-gray-200 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                  id="img" 
-                  type="text" 
-                  placeholder="https://images.pexels.com" 
-                  value={img}
-                  onChange={(e) => {setImg(e.target.value)}}
-          />
+            </label>
+          </div>
+          <div className='md:w-2/3'>
+            <input  class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" 
+                    id="img" 
+                    type="text" 
+                    placeholder="https://images.pexels.com" 
+                    value={img}
+                    onChange={(e) => {setImg(e.target.value)}}
+            />
+          </div>
         </div>
       </form>
       </Modal.Body>

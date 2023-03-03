@@ -21,7 +21,8 @@ const Customers = () => {
         setCustomers(data.customers)
       });
   }, []);
-  // POST API Method
+
+  // POST API Method (ADD)
   function newCustomer(name, industry) {
     const data = { name: name, industry: industry };
     const url = baseUrl + 'api/customers/';
@@ -36,7 +37,7 @@ const Customers = () => {
       if(!response.ok) {
         throw new Error('Somthing went wrong');
       }
-      return response.json();
+      return response.json(); // which gives us PROMISE so we don't have another .then
     })
     .then((data) => {
       toggleShow();
@@ -54,15 +55,17 @@ const Customers = () => {
   return (
     <div>
       <h1>Here are our customers:</h1>
-      <ul>
         {customers ? customers.map((customer) => {
           return (
-          <li key={customer.id}>
-            <Link to={"/customers/" + customer.id}>{customer.name}</Link>
-          </li>
+          <div key={customer.id} className='m-2'>
+            <Link to={"/customers/" + customer.id}>
+              <button className='bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded'>
+                {customer.name}
+              </button>
+            </Link>
+          </div>
           )
         }) : null }
-      </ul>
       <AddCustomer newCustomer={newCustomer} show={show} toggleShow={toggleShow} />
     </div>
   );
