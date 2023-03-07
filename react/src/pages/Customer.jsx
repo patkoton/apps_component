@@ -30,13 +30,20 @@ const Customer = () => {
     useEffect(() => {
         // console.log('useEffect');
         const url = baseUrl + "api/customers/" + id;
-        fetch(url)
+        fetch(url, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + localStorage.getItem('access'),
+          },
+        })
             .then((response) => {
                 if(response.status === 404) {
                     // redirect to a 404 page (New URL with useNavigate)
                     // --  navigate('/404')
                     // render a 404 component in this page
                     setNotFound(true);
+                } else if(response.status === 401) {
+                  navigate('/login');
                 }
                 if(!response.ok) { 
                   console.log('response', response)
@@ -60,10 +67,16 @@ const Customer = () => {
       const url = baseUrl + "api/customers/" + id;
       fetch(url, {
             method: "POST",
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + localStorage.getItem('access'),
+            },
             body: JSON.stringify(tempCustomer)
           })
           .then((response) => {
+            if(response.status === 401) {
+              navigate('/login');
+            }
             // console.log('response', response);
             if(!response.ok) throw new Error('Something went wrong');
             return response.json();
@@ -136,10 +149,16 @@ const Customer = () => {
                     onClick={() => {
               // DELETE API Method
               const url = baseUrl + 'api/customers/' + id;
-              fetch(url, { method: 'DELETE', headers: {
-                'Content-Type': 'application/json'
-              } })
+              fetch(url, { 
+                method: 'DELETE', 
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: 'Bearer ' + localStorage.getItem('access'),
+              }, })
                 .then((response) => {
+                  if(response.status === 401) {
+                    navigate('/login');
+                  }
                   if (!response.ok) {
                     throw new Error('Something went wrong');
                   }

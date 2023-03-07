@@ -5,6 +5,7 @@ import Lazy from './layout/Lazy';
 
 function App() {
   const Layout = lazy(()=> import('./layout/Layout'))
+  const Login = lazy(()=> import('./pages/Login'))
   const Dashboard = lazy(()=> import('./pages/Dashboard'))
   const Customer = lazy(()=> import('./pages/Customer'))
   const Customers = lazy(()=> import('./pages/Customers'))
@@ -16,6 +17,7 @@ function App() {
         <Layout>
           <Routes>
             <Route path='/' element={<Dashboard/>}/>
+            <Route path='/login' element={<Login/>}/>
             <Route path='/customers' element={<Customers/>}/>
             <Route path='/customers/:id' element={<Customer/>}/>
             <Route path='/dictionary' element={<Dictionary/>}/>
