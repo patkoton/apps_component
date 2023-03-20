@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom'
+import { LoginContext } from '../App';
 import { baseUrl } from '../shared';
 
 const Customer = () => {
@@ -9,7 +10,10 @@ const Customer = () => {
     const [notFound, setNotFound] = useState();
     const [changed, setChanged] = useState(false);
     const [error, setError] = useState();
+    const [loggedIn, setLoggedIn] = useContext(LoginContext)
+
     const navigate = useNavigate();
+    const location = useLocation();
 
     // useEffect on any State changed
     // Bolean flags that assumes they are equal checking the properties
@@ -43,7 +47,12 @@ const Customer = () => {
                     // render a 404 component in this page
                     setNotFound(true);
                 } else if(response.status === 401) {
-                  navigate('/login');
+                  setLoggedIn(false);
+                  navigate('/login', {
+                    state: {
+                      previousUrl: location.pathname,
+                    }
+                  });
                 }
                 if(!response.ok) { 
                   console.log('response', response)
@@ -75,7 +84,12 @@ const Customer = () => {
           })
           .then((response) => {
             if(response.status === 401) {
-              navigate('/login');
+              setLoggedIn(false);
+              navigate('/login', {
+                state: {
+                  previousUrl: location.pathname,
+                }
+              });
             }
             // console.log('response', response);
             if(!response.ok) throw new Error('Something went wrong');
@@ -157,7 +171,12 @@ const Customer = () => {
               }, })
                 .then((response) => {
                   if(response.status === 401) {
-                    navigate('/login');
+                    setLoggedIn(false);
+                    navigate('/login', {
+                      state: {
+                        previousUrl: location.pathname,
+                      }
+                    });
                   }
                   if (!response.ok) {
                     throw new Error('Something went wrong');

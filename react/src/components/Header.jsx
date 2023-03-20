@@ -1,13 +1,14 @@
-import { Fragment } from 'react'
+import { Fragment, useContext, useEffect } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { NavLink } from 'react-router-dom'
+import { LoginContext } from '../App'
 
 const navigation = [
   { name: 'Dashboard', href: './' },
   { name: 'Customers', href: './customers' },
   { name: 'Dictionary', href: '/dictionary' },
-  { name: 'Calendar', href: '/calendar' },
+  // { name: 'Calendar', href: '/calendar' },
 ]
 
 function classNames(...classes) {
@@ -15,6 +16,12 @@ function classNames(...classes) {
 }
 
 export default function Header({isOpen}) {
+
+  const [loggedIn, setLoggedIn] = useContext(LoginContext)
+
+  // useEffect(() => {
+  //   console.log(loggedIn)
+  // })
   return (
     <>
     <Disclosure as="nav" className={`bg-gray-800 float-right ${!isOpen ? 'w-full' : 'w-[calc(100%-250px)]'}`}>
@@ -60,6 +67,24 @@ export default function Header({isOpen}) {
                         {item.name}
                       </NavLink>
                     ))}
+                    { loggedIn ? (
+                    <NavLink
+                        to={'/login'}
+                        onClick={() => {
+                          setLoggedIn(false);
+                          localStorage.clear();
+                        }}
+                        className='px-3 py-2 rounded-md text-sm font-medium  text-gray-300 hover:bg-gray-700 hover:text-white'
+                      >
+                        Logout
+                    </NavLink> ) : (
+                    <NavLink
+                        to={'/login'}
+                        className='px-3 py-2 rounded-md text-sm font-medium  text-gray-300 hover:bg-gray-700 hover:text-white'
+                      >
+                        Login
+                    </NavLink>
+                    )}
                   </div>
                 </div>
               </div>
@@ -146,6 +171,24 @@ export default function Header({isOpen}) {
                         {item.name}
                 </NavLink>
               ))}
+              { loggedIn ? (
+                <NavLink
+                    to={'/login'}
+                    onClick={() => {
+                      setLoggedIn(false);
+                      localStorage.clear();
+                    }}
+                    className='block px-3 py-2 rounded-md text-base font-medium  text-gray-300 hover:bg-gray-700 hover:text-white'
+                  >
+                    Logout
+                </NavLink> ) : (
+                <NavLink
+                    to={'/login'}
+                    className='block px-3 py-2 rounded-md text-base font-medium  text-gray-300 hover:bg-gray-700 hover:text-white'
+                  >
+                    Login
+                </NavLink>
+                )}
             </div>
           </Disclosure.Panel>
         </>

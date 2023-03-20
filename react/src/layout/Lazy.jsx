@@ -4,8 +4,8 @@ import logo from '../logo.svg'
 const Lazy = () => {
 
   return (
-    <div className='lazy_image'>
-        <img alt='Lazy Loader Logo' src={logo} />
+    <div className='w-screen h-screen flex justify-center items-center'>
+        <img alt='Lazy Loader Logo' src={logo} className='w-80' />
     </div>
   )
 }

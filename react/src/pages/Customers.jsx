@@ -1,43 +1,57 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { LoginContext } from '../App';
 import AddCustomer from '../components/AddCustomer';
+import useFetch from '../hooks/UseFetch';
 import { baseUrl } from '../shared';
 
 const Customers = () => {
   const [customers, setCustomers] = useState();
   const [show, setShow] = useState(false);
+  const [loggedIn, setLoggedIn] = useContext(LoginContext);
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const url = baseUrl + 'api/customers/';
+  const {data, errorStatus} = useFetch(url, 'GET', {
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer ' + localStorage.getItem('access'),
+  });
 
   function toggleShow() {
     setShow(!show)
   }
 
   useEffect(() => {
-    // console.log('Fetching...')
-    const url = baseUrl + 'api/customers/';
-    fetch(url, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('access'),
-      },
-    })
-      .then((response) => {
-        if(response.status === 401) { 
-          navigate('/login', {
-            state: {
-              previousUrl: location.pathname,
-            }
-          });
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // console.log(data)
-        setCustomers(data.customers)
-      });
-  }, []);
+    console.log(data, errorStatus)
+  })
+
+  // useEffect(() => {
+  //   // console.log('Fetching...')
+  //   const url = baseUrl + 'api/customers/';
+  //   fetch(url, {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: 'Bearer ' + localStorage.getItem('access'),
+  //     },
+  //   })
+  //     .then((response) => {
+  //       if(response.status === 401) { 
+  //         setLoggedIn(false);
+  //         navigate('/login', {
+  //           state: {
+  //             previousUrl: location.pathname,
+  //           }
+  //         });
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       // console.log(data)
+  //       setCustomers(data.customers)
+  //     });
+  // }, []);
 
   // POST API Method (ADD)
   function newCustomer(name, industry) {

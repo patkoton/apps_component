@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
+import { LoginContext } from '../App';
 import { baseUrl } from '../shared';
 
 const Login = () => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+    const [loggedIn, setLoggedIn] = useContext(LoginContext)
 
    const location = useLocation();
    const navigate = useNavigate();
@@ -30,10 +32,12 @@ const Login = () => {
             return response.json();
         })
         .then((data) => {
-            localStorage.setItem('access', data.access)
-            localStorage.setItem('refresh', data.refresh)
-            // console.log(localStorage);
-           navigate(location.state.previousUrl);
+            localStorage.setItem('access', data.access);
+            localStorage.setItem('refresh', data.refresh);
+            setLoggedIn(true);
+            // How to make sure your login page is not completely broken if you try to access it directly
+            // Navigating to login and redirect back to the previous page
+           navigate(location?.state?.previousUrl ? location.state.previousUrl : '/customers');
         })
     }
 
