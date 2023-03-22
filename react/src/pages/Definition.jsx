@@ -16,7 +16,12 @@ const Definition = () => {
     // Redirect with navigate
     const navigate = useNavigate();
     const location = useLocation();
-    const [word, errorStatus] = useFetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + search)
+    const { request, data: [{ meanings: word }] = [{}], errorStatus } = useFetch(
+      'https://api.dictionaryapi.dev/api/v2/entries/en/' + search)
+
+    useEffect(() => {
+      request();
+    })
 
     if (errorStatus === 404) {
       return (
@@ -37,10 +42,10 @@ const Definition = () => {
 
   return (
     <>
-        {word?.[0]?.meanings ? 
+        {word ? 
           <> 
           <h1>Here is our definition:</h1>
-            {word[0].meanings.map((meaning) => {
+            {word.map((meaning) => {
               return <p key={uuidv4()}>{meaning.partOfSpeech + ':'} {meaning.definitions[0].definition}</p>
             })}
             <p>Search another</p> 

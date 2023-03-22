@@ -6,7 +6,7 @@ import useFetch from '../hooks/UseFetch';
 import { baseUrl } from '../shared';
 
 const Customers = () => {
-  const [customers, setCustomers] = useState();
+  // const [customers, setCustomers] = useState();
   const [show, setShow] = useState(false);
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
 
@@ -14,9 +14,13 @@ const Customers = () => {
   const location = useLocation();
 
   const url = baseUrl + 'api/customers/';
-  const {data, errorStatus} = useFetch(url, 'GET', {
-    'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + localStorage.getItem('access'),
+  // Assigned to a default empty object to prevent any attempts of accessing an undefined
+  const {request, appendData, data: {customers} = {}, errorStatus} = useFetch(url, {
+    method: 'GET', 
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + localStorage.getItem('access'),
+    }
   });
 
   function toggleShow() {
@@ -24,7 +28,11 @@ const Customers = () => {
   }
 
   useEffect(() => {
-    console.log(data, errorStatus)
+    request();
+  }, [])
+
+  useEffect(() => {
+    console.log(request, appendData, customers, errorStatus)
   })
 
   // useEffect(() => {
@@ -55,32 +63,37 @@ const Customers = () => {
 
   // POST API Method (ADD)
   function newCustomer(name, industry) {
-    const data = { name: name, industry: industry };
-    const url = baseUrl + 'api/customers/';
-    fetch(url, { 
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data),
-  })
-    .then((response) => {
-      if(!response.ok) {
-        throw new Error('Somthing went wrong');
-      }
-      return response.json(); // which gives us PROMISE so we don't have another .then
-    })
-    .then((data) => {
+    appendData({ name: name, industry: industry })
+
+    if(!errorStatus) {
       toggleShow();
-      console.log(data);
-      setCustomers([...customers, data.customer])
-      // Assume the add was successful
-      // Hide the Modal
-      // Make sure the list is updated appropriately
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+    }
+  //   const data = { name: name, industry: industry };
+  //   const url = baseUrl + 'api/customers/';
+  //   fetch(url, { 
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(data),
+  // })
+  //   .then((response) => {
+  //     if(!response.ok) {
+  //       throw new Error('Somthing went wrong');
+  //     }
+  //     return response.json(); // which gives us PROMISE so we don't have another .then
+  //   })
+  //   .then((data) => {
+  //     toggleShow();
+  //     console.log(data);
+  //     setCustomers([...customers, data.customer])
+  //     // Assume the add was successful
+  //     // Hide the Modal
+  //     // Make sure the list is updated appropriately
+  //   })
+  //   .catch((e) => {
+  //     console.log(e);
+  //   });
   }
 
   return (
