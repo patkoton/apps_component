@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom'
 import { LoginContext } from '../App'
 
 const navigation = [
-  { name: 'Dashboard', href: './' },
-  { name: 'Customers', href: './customers' },
+  { name: 'Dashboard', href: '/' },
+  { name: 'Customers', href: '/customers' },
   { name: 'Dictionary', href: '/dictionary' },
   // { name: 'Calendar', href: '/calendar' },
 ]
